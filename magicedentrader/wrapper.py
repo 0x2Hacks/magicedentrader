@@ -36,9 +36,14 @@ def get_collection_all_listings(symbol):
     return pieces
 
 def save_url(symbol, url, count):
-    img_data = requests.get(url).content
-    with open(symbol+'/'+str(count)+'.jpg', 'wb') as handler:
-        handler.write(img_data)
+    while True:
+        try:
+            img_data = requests.get(url).content
+            with open(symbol+'/'+str(count)+'.jpg', 'wb') as handler:
+                handler.write(img_data)
+            break
+        except Exception as e:
+            print(e)
 
 def get_collection_pics(symbol):
     listings = get_collection_all_listings(symbol)
